@@ -52,14 +52,12 @@ CharacterStats.prototype.takeDamage = function(){
   * should inherit takeDamage() from CharacterStats
 */
 function Humanoid(humanoidAttributes) {
-  GameObject.call(this, humanoidAttributes);
   CharacterStats.call(this, humanoidAttributes);
-  this.team = humanoidAttributes.weapons;
-  this.weapons = humanoidAttributes.name;
+  this.team = humanoidAttributes.team;
+  this.weapons = humanoidAttributes.weapons;
   this.language = humanoidAttributes.language;
 }
 
-Humanoid.prototype = Object.create(GameObject.prototype);
 Humanoid.prototype = Object.create(CharacterStats.prototype);
 
 Humanoid.prototype.greet = function(){
@@ -72,7 +70,67 @@ Humanoid.prototype.greet = function(){
   * Instances of CharacterStats should have all of the same properties as GameObject.
 */
 
+// Hero Constructor Stretch
+
+function Hero(heroAttributes) {
+  Humanoid.call(this, heroAttributes);
+}
+
+Hero.prototype = Object.create(Humanoid.prototype);
+
+Hero.prototype.strike = function(){
+    return `${this.name} has struck with a ${this.weapons}.`;
+}
+
+// Villain Constructor Stretch
+function Villain(villainAttributes) {
+  Humanoid.call(this, villainAttributes);
+}
+
+Villain.prototype = Object.create(Humanoid.prototype);
+
+Villain.prototype.magic = function(){
+    return `${this.name} drained opponent's ${this.healthPoints}.`;
+}
+
+
 // Test you work by un-commenting these 3 objects and the list of console logs below:
+
+//Stretch Characters
+
+  const knight = new Hero ({
+    createdAt: new Date(),
+    dimensions: {
+      lenght:2,
+      width:2,
+      height:4,
+    },
+    healthPoints: 12,
+    name: 'Sir George',
+    team: 'Empire',
+    weapons: [
+      'Broadsword',
+      'Gold Dagger'
+    ],
+    language: 'Common Tongue',
+  });
+
+  const sorcerer = new Villain ({
+    createdAt: new Date(),
+    dimensions: {
+      lenght:3,
+      width:2,
+      height:3,
+    },
+    healthPoints: 11,
+    name: 'Xastrax',
+    team: 'Underworld',
+    weapons: [
+      'Wand',
+      'Cursed Gem'
+    ],
+    language: 'Xastrasy',
+  });
 
 
   const mage = new Humanoid({
@@ -135,6 +193,8 @@ Humanoid.prototype.greet = function(){
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+  console.log(knight.weapons);
+  console.log(sorcerer.takeDamage());
 
 
   // Stretch task: 
